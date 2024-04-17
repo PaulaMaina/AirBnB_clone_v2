@@ -32,7 +32,7 @@ class Place(BaseModel, Base):
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship("Review", cascade='all, delete, delete-orphan',
-                               backref="place")
+                               backref="places")
         amenities = relationship("Amenity", secondary=place_amenity,
                                  viewonly=False,
                                  back_populates="place_amenities")
@@ -56,7 +56,7 @@ class Place(BaseModel, Base):
         @property
         def amenities(self):
             """Returns a list of amenities IDs"""
-            return self.amenity.ids
+            return self.amenity_ids
 
         @amenities.setter
         def amenities(self, obj=None):

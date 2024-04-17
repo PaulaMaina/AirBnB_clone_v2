@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """DBStorage engine"""
 from os import getenv
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import create_engine
+from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 from models.state import State
@@ -56,14 +55,14 @@ class DBStorage:
         """Adds the object to the current session"""
         self.__session.add(obj)
 
-    def save(self, obj):
+    def save(self):
         """Commits all changes of the current session"""
         self.__session.commit()
 
     def delete(self, obj=None):
         """Deletes obj from the current session if obj is not None"""
         if obj:
-            self.__session.delete(obj)
+            self.session.delete(obj)
 
     def reload(self):
         """Creates all tables in the database and the current session"""
