@@ -31,7 +31,7 @@ class DBStorage:
                                       pool_pre_ping=True)
 
         if env == "test":
-            Base.metadat.drop_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Returns a dictionary"""
@@ -42,14 +42,14 @@ class DBStorage:
             query = self.__session.query(cls)
             for element in query:
                 key = "{}.{}".format(type(element).__name__, element.id)
-                my_dict[key] = elment
+                my_dict[key] = element
         else:
             listing = [State, City, User, Place, Review, Amenity]
             for prop in listing:
                 query = self.__session.query(prop)
                 for element in query:
-                    key = "{}.{}".formaat(type(element).__name__, element.id)
-                    my_dict = element
+                    key = "{}.{}".format(type(element).__name__, element.id)
+                    my_dict[key] = element
         return (my_dict)
 
     def new(self, obj):
@@ -58,12 +58,12 @@ class DBStorage:
 
     def save(self, obj):
         """Commits all changes of the current session"""
-        self.__session.commit(obj)
+        self.__session.commit()
 
     def delete(self, obj=None):
         """Deletes obj from the current session if obj is not None"""
         if obj:
-            self.session.delete(obj)
+            self.__session.delete(obj)
 
     def reload(self):
         """Creates all tables in the database and the current session"""
