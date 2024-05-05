@@ -9,7 +9,7 @@ from datetime import datetime
 def do_pack():
     """Makes an archive of the web_static folder"""
     date = datetime.now()
-    archive = 'web_static_' + date.strftime("%Y%m%d%H%M%S") + '.tgz'
+    archive = 'web_static_' + date.strftime("%Y%m%d%H%M%S") + '.' + 'tgz'
     local('mkdir -p versions')
     create = local('tar -cvzf versions/{} web_static'.format(archive))
 
