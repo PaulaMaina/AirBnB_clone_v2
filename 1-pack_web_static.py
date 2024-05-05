@@ -11,7 +11,7 @@ def do_pack():
     date = datetime.now()
     archive = 'web_static_' + date.strftime("%Y%m%d%H%M%S") + '.tgz'
     local('mkdir -p versions')
-    create = local('tar -cvzf versions/{} web_static' .format(archive))
+    create = local('tar -cvzf versions/{} web_static'.format(archive))
 
     if create is not None:
         return archive
