@@ -25,5 +25,5 @@ def do_clean(number=0):
         archives = [a for a in archives if "web_static_" in a]
         for i in range(number):
             archives.pop()
-            for a in archives:
-                run("rm -rf ./{}".format(a))
+        for a in archives:
+            run("rm -rf ./{}".format(a))
