@@ -2,7 +2,7 @@
 """This script starts a Flask web app"""
 
 
-ifrom flask import Flask, render_template
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
