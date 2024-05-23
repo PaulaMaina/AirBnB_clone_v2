@@ -5,7 +5,7 @@ import models
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.city import City
-import shlex
+from os import getenv
 
 
 class State(BaseModel, Base):
@@ -27,7 +27,7 @@ class State(BaseModel, Base):
         def cities(self):
             cities_all = models.storage.all(City)
             city_list = []
-        for city in cities_all.values():
-            if city.state_id == self.id:
-                city_list.append(city)
-        return (city_list)
+            for city in cities_all.values():
+                if city.state_id == self.id:
+                    city_list.append(city)
+                return (city_list)
