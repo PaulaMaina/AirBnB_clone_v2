@@ -3,11 +3,16 @@
 
 
 from os import getenv
+from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.user import User
+from models.amenity import Amenity
+from models.review import Review
 
 
-storage_t = getenv("HBNB_TYPE_STORAGE")
-
-if storage_t == "db":
+if getenv("HBNB_TYPE_STORAGE") == "db":
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
 else:

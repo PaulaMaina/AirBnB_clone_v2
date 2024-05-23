@@ -8,18 +8,14 @@ from sqlalchemy import Column, Integer, String, DateTime
 from os import getenv
 
 
-if models.storage_t == "db":
-    Base = declarative_base()
-else:
-    Base = object
+Base = declarative_base()
 
 
 class BaseModel:
     """A base class for all hbnb models"""
-    if models.storage_t == "db":
-        id = Column(String(60), unique=True, nullable=False, primary_key=True)
-        created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
-        updated_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
         """Instantiates a new model"""
