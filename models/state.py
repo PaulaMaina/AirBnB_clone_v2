@@ -18,12 +18,11 @@ class State(BaseModel, Base):
         """Initializes the state class"""
         super().__init__(*args, **kwargs)
 
-    if models.storage != "db":
-        @property
-        def cities(self):
-            cities_all = models.storage.all(City)
-            city_list = []
-            for city in cities_all.values():
-                if city.state_id == self.id:
-                    city_list.append(city)
-                return (city_list)
+    @property
+    def cities(self):
+        cities_all = models.storage.all(City)
+        city_list = []
+        for city in cities_all.values():
+            if city.state_id == self.id:
+                city_list.append(city)
+            return (city_list)

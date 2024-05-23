@@ -1,15 +1,10 @@
 #!/usr/bin/python3
 """DBStorage engine"""
 from os import getenv
+import models
 import sqlalchemy
-from sqlalchemy import (create_engine)
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.user import User
-from models.amenity import Amenity
-from models.review import Review
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 from models.base_model import Base
 from models.state import State
 from models.city import City
@@ -33,8 +28,7 @@ class DBStorage:
         env = getenv("HBNB_ENV")
 
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                                      .format(user, passwd, host, db),
-                                      pool_pre_ping=True)
+                                      .format(user, passwd, host, db))
 
         if env == "test":
             Base.metadata.drop_all(self.__engine)
@@ -68,7 +62,7 @@ class DBStorage:
 
     def delete(self, obj=None):
         """Deletes obj from the current session if obj is not None"""
-        if obj:
+        if obj is not None:
             self.session.delete(obj)
 
     def reload(self):
