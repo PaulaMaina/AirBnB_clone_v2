@@ -12,7 +12,7 @@ class State(BaseModel, Base):
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     cities = relationship("City", cascade='all, delete, delete-orphan',
-                              backref="states")
+                          backref="states")
 
     def __init__(self, *args, **kwargs):
         """Initializes the state class"""
