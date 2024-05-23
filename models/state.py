@@ -10,23 +10,24 @@ import shlex
 
 class State(BaseModel, Base):
     """ State class """
-    __tablename__ = "states"
-    name = Column(String(128), nullable=False)
-    cities = relationship("City", cascade='all, delete, delete-orphan',
-                          backref="states")
+    if models.storage_t == "db":
+        __tablename__ = "states"
+        name = Column(String(128), nullable=False)
+        cities = relationship("City", cascade='all, delete, delete-orphan',
+                              backref="states")
+    else:
+        name = ""
 
-    @property
-    def cities(self):
-        states_all = models.storage.all()
-        state_list = []
-        city_list = []
-        for key in all_models:
-            city = key.replace('.', ' ')
-            city = shlex.split(city)
-            if (city[0] == 'City'):
-                state_list.append(states_all[key])
-        for elem in state_list:
-            if (elem.state_id == self.id):
-                city_list.append(elem)
+    def __init__(self, *args, **kwargs):
+        """Initializes the state class"""
+        super().__init__(*args, **kwargs)
 
+    if models.storage_t != "db":
+        @property
+        def cities(self):
+            cities_all = models.storage.all(City)
+            city_list = []
+        for city in cities_all.values():
+            if city.state_id == self.id:
+                city_list.append(city)
         return (city_list)
